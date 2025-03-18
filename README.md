@@ -1,2 +1,2 @@
-# Projekt-C-
+# Projekt-CS
 Gra Statki
