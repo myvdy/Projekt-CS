@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\egzamin\\Desktop\\Statki\\Statki\\Statki.csproj",
+      "projectUniqueName": "C:\\Users\\egzamin\\Desktop\\Projekt-CS\\Statki\\Statki\\Statki.csproj",
       "projectName": "Statki",
-      "projectPath": "C:\\Users\\egzamin\\Desktop\\Statki\\Statki\\Statki.csproj",
+      "projectPath": "C:\\Users\\egzamin\\Desktop\\Projekt-CS\\Statki\\Statki\\Statki.csproj",
       "packagesPath": "C:\\Users\\egzamin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\egzamin\\Desktop\\Statki\\Statki\\obj\\",
+      "outputPath": "C:\\Users\\egzamin\\Desktop\\Projekt-CS\\Statki\\Statki\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
