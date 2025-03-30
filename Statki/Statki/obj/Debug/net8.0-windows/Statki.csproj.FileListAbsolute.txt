@@ -42,3 +42,25 @@ C:\Users\egzamin\Desktop\Statki\Statki\obj\Debug\net8.0-windows\refint\Statki.dl
 C:\Users\egzamin\Desktop\Statki\Statki\obj\Debug\net8.0-windows\Statki.pdb
 C:\Users\egzamin\Desktop\Statki\Statki\obj\Debug\net8.0-windows\Statki.genruntimeconfig.cache
 C:\Users\egzamin\Desktop\Statki\Statki\obj\Debug\net8.0-windows\ref\Statki.dll
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\bin\Debug\net8.0-windows\Statki.exe
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\bin\Debug\net8.0-windows\Statki.deps.json
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\bin\Debug\net8.0-windows\Statki.runtimeconfig.json
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\bin\Debug\net8.0-windows\Statki.dll
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\bin\Debug\net8.0-windows\Statki.pdb
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\SinglePlayerShips.baml
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\SinglePlayerShips.g.cs
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki_MarkupCompile.cache
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki_MarkupCompile.lref
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.g.resources
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.AssemblyInfoInputs.cache
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.AssemblyInfo.cs
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.csproj.CoreCompileInputs.cache
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.dll
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\refint\Statki.dll
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.pdb
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\Statki.genruntimeconfig.cache
+C:\Users\jdoro\OneDrive\Рабочий стол\Statki\Statki\obj\Debug\net8.0-windows\ref\Statki.dll
