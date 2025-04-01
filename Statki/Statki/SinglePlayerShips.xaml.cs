@@ -81,6 +81,7 @@ namespace Statki {
 
             GenerateAndDisplayBoard(Board2);
             GenerateAndDisplayBoard(Board);
+            AddShips(Board, CanvasLeft);
         }
 
 
@@ -99,7 +100,6 @@ namespace Statki {
             }
 
             DisplayBoard(board, Board);
-            AddShips(Board, CanvasLeft);
         }
 
 
