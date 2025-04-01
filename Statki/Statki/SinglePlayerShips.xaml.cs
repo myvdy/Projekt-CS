@@ -9,6 +9,34 @@ using System.Windows.Navigation;
 using System.Globalization;
 
 namespace Statki {
+
+    public class PositionConverter : IValueConverter
+    {
+        private readonly int index;
+        private readonly bool isTop;
+
+        public PositionConverter(int index, bool isTop)
+        {
+            this.index = index;
+            this.isTop = isTop;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is double gridDimension)
+            {
+                return index * (gridDimension / 11);
+            }
+            return 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+
     public class BtnSizeConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is double number) { 
@@ -51,15 +79,36 @@ namespace Statki {
         }
     }
 
-    /*
+
     public class MarginConverter : IValueConverter {
+        double currentSize; 
         int size;
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if (value is double val) { 
-                
-            }
+        int j;
+        bool isLeft;
+        public MarginConverter(double currentSize, int size, int j, bool isLeft) {
+            this.currentSize = currentSize;
+            this.size = size;
+            this.j = j;
+            this.isLeft = isLeft;
         }
-    }*/
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            if (value is double number) {
+                if (isLeft) {
+                    return currentSize + j * (size * currentSize + currentSize * 4 / 3 / size);
+                }
+                else {
+                    return size * (currentSize + currentSize / 3);
+                }
+            }
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            return value;
+        }
+    }
 
 
     public partial class SinglePlayerShips : Window {
@@ -72,6 +121,8 @@ namespace Statki {
 
         public SinglePlayerShips(int level) {
             InitializeComponent();
+            window.StateChanged += SizeChanged;
+
 
             Grid Board = BoardGrid;
             Grid Board2 = BoardGrid2;
@@ -82,6 +133,13 @@ namespace Statki {
             GenerateAndDisplayBoard(Board2);
             GenerateAndDisplayBoard(Board);
             AddShips(Board, CanvasLeft);
+        }
+        private void SizeChanged(object sender, EventArgs e)
+        {
+            double height = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double width = System.Windows.SystemParameters.PrimaryScreenWidth;
+            window.Height = height;
+            window.Width = width;
         }
 
 
@@ -142,7 +200,7 @@ namespace Statki {
         }
 
 
-        private void AddShip(Grid gridBoard, Canvas canvas, int X, int Y, int size) {
+        private void AddShip(Grid gridBoard, Canvas canvas, double X, double Y, int size) {
             int row = 0;
             int column = 0;
 
@@ -178,14 +236,6 @@ namespace Statki {
             shipVis.SetBinding(WidthProperty, WidthBind);
             shipVis.SetBinding(HeightProperty, HeightBind);
 
-            /*if (ship.isHorizontal) {
-                shipVis.Width = Convert.ToInt32(30 * size);
-                shipVis.Height = Convert.ToInt32(30);
-            } else {
-                shipVis.Width = Convert.ToInt32(30);
-                shipVis.Height = Convert.ToInt32(30 * size);
-            }*/
-
             shipVis.MouseDown += startDragging;
             shipVis.MouseUp += stopDragging;
 
@@ -194,13 +244,16 @@ namespace Statki {
 
 
         private void AddShips(Grid gridBoard, Canvas canvas) {
+
             int[][] shipsSizes = [[1, 1, 1, 1], [2, 2, 2], [3, 3], [4]];
 
             for (int i = 0; i < shipsSizes.Length; i++) {
                 for (int j = 0; j < shipsSizes[i].Length; j++) {
+
                     int shipSize = shipsSizes[i][j];
-                    int x = 30 + j * (shipSize * 30 + 40 / shipSize);
-                    int y = shipSize * (30 + 10);
+                    double currentSize = gridBoard.Height / 11;
+                    double x = currentSize + j * (shipSize * currentSize + currentSize * 4 / 3 / shipSize);
+                    double y = shipSize * (currentSize + currentSize / 3);
 
                     AddShip(gridBoard, canvas, x, y, shipSize);
                 }
@@ -211,7 +264,7 @@ namespace Statki {
         private void Button_MouseDown(object sender, MouseButtonEventArgs e) {
             Button btn = sender as Button;
             if (btn != null) {
-                //MessageBox.Show($"Kliknięto na pole: Wiersz {Grid.GetRow(btn)}, Kolumna {Grid.GetColumn(btn)}");
+                MessageBox.Show($"Kliknięto na pole: Wiersz {Grid.GetRow(btn)}, Kolumna {Grid.GetColumn(btn)}");
                 MessageBox.Show(Convert.ToString(BoardGrid.Height));
                 MessageBox.Show(Convert.ToString(window.Height));
             }
@@ -228,24 +281,46 @@ namespace Statki {
                 dragStartPosition = e.GetPosition(CanvasLeft);
                 isDrag = true;
             }
-            //System.Windows.Point coords = e.GetPosition(CanvasLeft);
-            /*if (sender is System.Windows.Shapes.Rectangle ship) {
-                Canvas.SetLeft(ship, coords.X);
-                Canvas.SetTop(ship, coords.Y);
-            }*/
         }
 
-        private void stopDragging(object sender, MouseButtonEventArgs e) {
+        private void stopDragging(object sender, MouseButtonEventArgs e)
+        {
             isDrag = false;
+
+            if (currentShip != null) {
+                double currentTop = Canvas.GetTop(currentShip);
+                double currentLeft = Canvas.GetLeft(currentShip);
+
+                int nearestRow = (int)Math.Round(currentTop / (BoardGrid.ActualHeight / 11));
+                int nearestColumn = (int)Math.Round(currentLeft / (BoardGrid.ActualWidth / 11));
+
+                Canvas.SetTop(currentShip, nearestRow * (BoardGrid.ActualHeight / 11));
+                Canvas.SetLeft(currentShip, nearestColumn * (BoardGrid.ActualWidth / 11));
+
+                Binding topBinding = new Binding("ActualHeight")
+                {
+                    Source = BoardGrid,
+                    Converter = new PositionConverter(nearestRow, true)
+                };
+                Binding leftBinding = new Binding("ActualWidth")
+                {
+                    Source = BoardGrid,
+                    Converter = new PositionConverter(nearestColumn, false)
+                };
+                currentShip.SetBinding(Canvas.TopProperty, topBinding);
+                currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
+            }
         }
+
 
         private void MoveShip(object sender, MouseEventArgs e) {
             if (isDrag) {
                 System.Windows.Point coords = e.GetPosition(CanvasLeft);
                 Canvas.SetLeft(currentShip, left + ((coords.X - left) - (dragStartPosition.X - left)));
                 Canvas.SetTop(currentShip, top + ((coords.Y - top) - (dragStartPosition.Y - top)));
-                //Canvas.SetTop(currentShip, top + (coords.Y - left));
             }
         }
+
+
     }
 }
