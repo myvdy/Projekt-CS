@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using System.Globalization;
+using System.Windows.Media.Imaging;
 
 namespace Statki {
 
@@ -190,6 +191,9 @@ namespace Statki {
                         btn.Style = (Style)Resources["field"];
                     } else if (board[i][j] == 0) {
                         btn.Style = (Style)Resources["field2"];
+                        ImageBrush imgBrush = new ImageBrush();
+                        imgBrush.ImageSource = new BitmapImage(new Uri("../../../water.png", UriKind.Relative));
+                        btn.Background = imgBrush;
                     }
 
                     btn.MouseDown += Button_MouseDown;
@@ -225,9 +229,12 @@ namespace Statki {
                 }
             }
 
-            System.Windows.Shapes.Rectangle shipVis = new System.Windows.Shapes.Rectangle {
-                Fill = new SolidColorBrush(Colors.Black),
-                Stroke = new SolidColorBrush(Colors.Red),
+            ImageBrush imgBrush = new ImageBrush();
+            imgBrush.ImageSource = new BitmapImage(new Uri("../../../ship.jpg", UriKind.Relative));
+
+            Image shipVis = new Image
+            {
+                Source = imgBrush.ImageSource
             };
 
             Canvas.SetTop(shipVis, Y + gridBoard.Height);

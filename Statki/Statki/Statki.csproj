@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ship.jpg" />
+    <None Remove="water.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ship.jpg" />
+    <Resource Include="water.png" />
+  </ItemGroup>
+
 </Project>

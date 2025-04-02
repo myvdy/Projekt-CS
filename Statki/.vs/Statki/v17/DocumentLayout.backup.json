@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml",
@@ -46,16 +46,16 @@
               "Title": "SinglePlayerShips.xaml.cs",
               "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml.cs",
-              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs*",
-              "RelativeToolTip": "Statki\\SinglePlayerShips.xaml.cs*",
-              "ViewState": "AgIAANwAAAAAAAAAAAAAAPoAAABAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
+              "RelativeToolTip": "Statki\\SinglePlayerShips.xaml.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAqwMcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T10:36:14.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml.cs",
@@ -68,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "SinglePlayerShips.xaml",
               "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml",

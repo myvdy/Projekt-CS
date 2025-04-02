@@ -18,7 +18,7 @@
             <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="Button" x:Key="field2">
-            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderBrush" Value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ="Black"/>
             <Setter Property="Background" Value="LightBlue"/>
         </Style>
         <Style TargetType="Button" x:Key="Ship">
@@ -30,6 +30,13 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="#4747D6" Offset="0"/>
+                <GradientStop Color="#2C286C" Offset="0.5"/>
+                <GradientStop Color="#4747D6" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
