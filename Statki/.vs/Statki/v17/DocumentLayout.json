@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\",
+  "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\jajco\\projekt-cs\\statki\\statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\jajco\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\jajco\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\egzamin\\desktop\\project\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\jajco\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -32,23 +32,22 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
               "RelativeToolTip": "Statki\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T07:07:24.585Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T07:07:24.585Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "SinglePlayerShips.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml.cs",
-              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
               "RelativeToolTip": "Statki\\SinglePlayerShips.xaml.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAqwLoAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAGkBAAAAAAAAAAAswJEBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T10:36:14.069Z",
               "EditorCaption": ""
@@ -57,26 +56,24 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
               "RelativeToolTip": "Statki\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T07:07:21.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T07:07:21.008Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "SinglePlayerShips.xaml",
-              "DocumentMoniker": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml",
-              "ToolTip": "C:\\Users\\egzamin\\Desktop\\Project\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\jajco\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeToolTip": "Statki\\SinglePlayerShips.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T07:07:18.934Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T07:07:18.934Z"
             }
           ]
         }
