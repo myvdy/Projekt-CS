@@ -151,9 +151,9 @@ namespace Statki
 
             CanvasLeft.MouseMove += MoveShip;
 
-            GenerateAndDisplayBoard(Board2);
             GenerateAndDisplayBoard(Board);
-            AddShips(Board, CanvasLeft);
+            GenerateAndDisplayBoard(Board2);
+            Board.Loaded += (s, e) => AddShips(Board, CanvasLeft);
         }
         private void SizeChanged(object sender, EventArgs e)
         {
@@ -237,7 +237,7 @@ namespace Statki
         }
 
 
-        private void AddShip(Grid gridBoard, Canvas canvas, double X, double Y, int size)
+        private void AddShip(Grid gridBoard, Canvas canvas, int X, int Y, int size)
         {
             int row = 0;
             int column = 0;
@@ -277,8 +277,30 @@ namespace Statki
                 Tag = ship
             };
 
-            Canvas.SetTop(shipVis, Y + gridBoard.Height);
-            Canvas.SetLeft(shipVis, X);
+            //double currentTop = Y;
+            //double currentLeft = X;
+
+            int nearestRow = Y;
+            int nearestColumn = X;
+
+            //int nearestRow = (int)Math.Round(currentTop / (BoardGrid.ActualHeight / 11));
+            //int nearestColumn = (int)Math.Round(currentLeft / (BoardGrid.ActualWidth / 11));
+
+            Binding topBinding = new Binding("ActualHeight")
+            {
+                Source = BoardGrid,
+                Converter = new PositionConverter(nearestRow, true)
+            };
+            Binding leftBinding = new Binding("ActualWidth")
+            {
+                Source = BoardGrid,
+                Converter = new PositionConverter(nearestColumn, false)
+            };
+
+            shipVis.SetBinding(Canvas.TopProperty, topBinding);
+            shipVis.SetBinding(Canvas.LeftProperty, leftBinding);
+
+
 
             if (ship.isHorizontal)
             {
@@ -313,16 +335,20 @@ namespace Statki
                 {
                     int shipSize = shipsSizes[i][j];
                     double currentSize = gridBoard.Height / 11;
-                    double x = currentSize + j * (shipSize * currentSize + currentSize * 4 / 3 / shipSize);
-                    double y = shipSize * (currentSize + currentSize / 3);
 
-                    AddShip(gridBoard, canvas, x, y, shipSize);
+                    double x = currentSize;
+                    double y = shipSize + gridBoard.Height / 11 * 12;
+
+                    int nearestRow = (int)Math.Round(y / (BoardGrid.ActualHeight / 11));
+                    int nearestColumn = (int)Math.Round(x / (BoardGrid.ActualWidth / 11));
+
+                    AddShip(gridBoard, canvas, nearestColumn + j * (shipSize + 1), nearestRow + i * 2, shipSize);
                 }
             }
         }
         private void RotateShip(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2 && sender is Image shipImage)
+            if (e.ClickCount == 1 && sender is Image shipImage)
             {
                 Ship ship = (Ship)shipImage.Tag;
                 ship.isHorizontal = !ship.isHorizontal;
@@ -357,10 +383,6 @@ namespace Statki
                 shipImage.SetBinding(HeightProperty, HeightBind);
             }
         }
-
-
-
-
 
         private void Button_MouseDown(object sender, MouseButtonEventArgs e)
         {
