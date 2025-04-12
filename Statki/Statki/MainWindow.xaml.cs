@@ -12,10 +12,10 @@ namespace Statki
         public MainWindow()
         {
             InitializeComponent();
-            Connect("localhost", "ships", "root", "");
+            //Connect("localhost", "ships", "root", "");
         }
 
-        public void Connect(string server, string database, string user, string password)
+        /*public void Connect(string server, string database, string user, string password)
         {
             string connectionString = $"SERVER={server};DATABASE={database};UID={user};PASSWORD={password};";
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -36,7 +36,7 @@ namespace Statki
                 connection.Close();
             }
         }
-
+        */
         private void EasyButton_Click(object sender, RoutedEventArgs e)
         {
             level = 1;
