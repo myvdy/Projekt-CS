@@ -92,7 +92,7 @@ namespace Statki {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Statki;V1.0.0.0;component/singleplayerships.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Statki;component/singleplayerships.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SinglePlayerShips.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

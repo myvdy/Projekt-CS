@@ -255,18 +255,6 @@ namespace Statki
             WidthBind.Source = gridBoard;
             WidthBind.Converter = WidthConverter;
 
-            /*for (int i = 0; i < ship.length; i++)
-            {
-                if (ship.isHorizontal)
-                {
-                    board[ship.column + i][ship.row] = 1;
-                }
-                else
-                {
-                    board[ship.column][ship.row + i] = 1;
-                }
-            }*/
-
             ImageBrush imgBrush = new ImageBrush();
             imgBrush.ImageSource = new BitmapImage(new Uri("../../../ship.jpg", UriKind.Relative));
 
@@ -350,20 +338,21 @@ namespace Statki
             {
                 Ship ship = (Ship)shipImage.Tag;
 
-                
+                changeStateUnderShip(ship, ship.row, ship.column, 0);
 
-                if (ship.isHorizontal && ship.row + ship.length - 1 <= 10 || ship.row > 10) {
-                    double temp = shipImage.Width;
-                    shipImage.Width = shipImage.Height;
-                    shipImage.Height = temp;
-                    ship.isHorizontal = !ship.isHorizontal;
-                } else if (!ship.isHorizontal && ship.column + ship.length - 1 <= 10 || ship.row > 10) {
-                    double temp = shipImage.Width;
-                    shipImage.Width = shipImage.Height;
-                    shipImage.Height = temp;
-                    ship.isHorizontal = !ship.isHorizontal;
+                if (!willShipFit(ship, ship.row, ship.column, !ship.isHorizontal)) {
+                    changeStateUnderShip(ship, ship.row, ship.column, 1);
+                    return;
                 }
 
+
+                double temp = shipImage.Width;
+                shipImage.Width = shipImage.Height;
+                shipImage.Height = temp;
+                ship.isHorizontal = !ship.isHorizontal;
+               
+
+                changeStateUnderShip(ship, ship.row, ship.column, 1);
 
                 Binding HeightBind = new Binding("Height");
                 Binding WidthBind = new Binding("Height");
@@ -398,6 +387,11 @@ namespace Statki
                 top = Canvas.GetTop(currentShip);
                 left = Canvas.GetLeft(currentShip);
 
+                Ship shit = (Ship)currentShip.Tag;
+
+                if (!(shit.column > 10 || shit.row > 10)) {
+                    changeStateUnderShip(shit, shit.row, shit.column, 0);
+                }
 
                 dragStartPosition = e.GetPosition(CanvasLeft);
                 isDrag = true;
@@ -416,14 +410,6 @@ namespace Statki
                 int nearestRow = getClosestCoord(currentTop);
                 int nearestColumn = getClosestCoord(currentLeft);
 
-                Ship shit = (Ship)currentShip.Tag;
-
-                bool isRowOutOfBounds = nearestRow < 1 || nearestRow > 10;
-                bool isColOutOfBounds = nearestColumn < 1 || nearestColumn > 10;
-                bool isHorizontalyFit = nearestColumn + shit.length - 1 <= 10 && shit.isHorizontal;
-                bool isVerticalyFit = nearestRow + shit.length - 1 <= 10 && shit.isHorizontal == false;
-
-
                 Binding topBinding = new Binding("ActualHeight") {
                     Source = BoardGrid,
                     Converter = new PositionConverter(nearestRow, true)
@@ -433,7 +419,12 @@ namespace Statki
                     Converter = new PositionConverter(nearestColumn, false)
                 };
 
-                if (isRowOutOfBounds || isColOutOfBounds || (isHorizontalyFit == false && isVerticalyFit == false)) {
+                Ship shit = (Ship)currentShip.Tag;
+
+                
+                bool isShipFit = willShipFit(shit, nearestRow, nearestColumn, shit.isHorizontal);
+
+                if (!isShipFit) {
                     topBinding.Converter = new PositionConverter(shit.startingRow, true);
                     leftBinding.Converter = new PositionConverter(shit.startingColumn, false);
 
@@ -441,6 +432,7 @@ namespace Statki
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
 
                 } else {
+                    changeStateUnderShip(shit, nearestRow, nearestColumn, 1);
 
                     currentShip.SetBinding(Canvas.TopProperty, topBinding);
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
@@ -469,6 +461,55 @@ namespace Statki
             return (int)Math.Round(position / (BoardGrid.ActualHeight / 11));
         }
 
+        private bool willShipFit(Ship shit, int nearestRow, int nearestColumn, bool isHorizontal) {
+            bool isRowOutOfBounds = nearestRow < 1 || nearestRow > 10;
+            bool isColOutOfBounds = nearestColumn < 1 || nearestColumn > 10;
+            bool isHorizontalyFit = nearestColumn + shit.length - 1 <= 10 && isHorizontal;
+            bool isVerticalyFit = nearestRow + shit.length - 1 <= 10 && isHorizontal == false;
+
+            int startingPoint = isHorizontal ? nearestColumn : nearestRow;
+
+            if (isRowOutOfBounds || isColOutOfBounds || (isHorizontalyFit == false && isVerticalyFit == false)) {
+                return false;
+            }
+
+            for (int i = startingPoint; i < startingPoint + shit.length; i++) {
+                if (board[nearestRow][nearestColumn] == 0) {
+                    int leftBorder = nearestColumn - 1,
+                        rightBorder = leftBorder + 3,
+                        topBorder = nearestRow - 1,
+                        bottomBorder = topBorder + 3;
+
+                    if (isHorizontal) {
+                        leftBorder += i - startingPoint;
+                        rightBorder += i - startingPoint;
+                    } else {
+                        topBorder += i - startingPoint;
+                        bottomBorder += i - startingPoint;
+                    }
+
+                    for (int j = topBorder; j < bottomBorder; j++) {
+                        for (int k = leftBorder; k < rightBorder; k++) {
+                            if (j >= 0 && k >= 0 && j <= 10 && k <= 10) {
+                                if (board[j][k] != 0) {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        private void changeStateUnderShip(Ship shit, int row, int column, int state) {
+            for (int i = 0; i < shit.length; i++) {
+                if (shit.isHorizontal) {
+                    board[row][column + i] = state;
+                } else {
+                    board[row + i][column] = state;
+                }
+            }
+        }
 
     }
 }
