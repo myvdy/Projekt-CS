@@ -230,8 +230,6 @@ namespace Statki
                         btn.Background = imgBrush;
                     }
 
-                    btn.MouseDown += Button_MouseDown;
-
                     Board.Children.Add(btn);
                 }
             }
@@ -334,25 +332,24 @@ namespace Statki
         }
         private void RotateShip(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 1 && sender is Image shipImage && !isDrag)
-            {
+            if (e.ClickCount == 1 && sender is Image shipImage && !isDrag) {
                 Ship ship = (Ship)shipImage.Tag;
 
-                changeStateUnderShip(ship, ship.row, ship.column, 0);
-
-                if (!willShipFit(ship, ship.row, ship.column, !ship.isHorizontal)) {
+                if (!isOutOfBounds(ship.row, ship.column)) { 
+                    changeStateUnderShip(ship, ship.row, ship.column, 0);
+                    if (willShipFit(ship, ship.row, ship.column, !ship.isHorizontal)) {
+                        ship.isHorizontal = !ship.isHorizontal;
+                    }
                     changeStateUnderShip(ship, ship.row, ship.column, 1);
-                    return;
                 }
-
 
                 double temp = shipImage.Width;
                 shipImage.Width = shipImage.Height;
                 shipImage.Height = temp;
-                ship.isHorizontal = !ship.isHorizontal;
-               
 
-                changeStateUnderShip(ship, ship.row, ship.column, 1);
+                if (isOutOfBounds(ship.row, ship.column)) {
+                    ship.isHorizontal = !ship.isHorizontal;
+                }
 
                 Binding HeightBind = new Binding("Height");
                 Binding WidthBind = new Binding("Height");
@@ -366,18 +363,6 @@ namespace Statki
                 shipImage.SetBinding(HeightProperty, HeightBind);
             }
         }
-
-        private void Button_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Button btn = sender as Button;
-            if (btn != null)
-            {
-                MessageBox.Show($"Kliknięto na pole: Wiersz {Grid.GetRow(btn)}, Kolumna {Grid.GetColumn(btn)}");
-                MessageBox.Show(Convert.ToString(BoardGrid.Height));
-                MessageBox.Show(Convert.ToString(window.Height));
-            }
-        }
-
 
         private void startDragging(object sender, MouseButtonEventArgs e)
         {
@@ -424,7 +409,9 @@ namespace Statki
                 
                 bool isShipFit = willShipFit(shit, nearestRow, nearestColumn, shit.isHorizontal);
 
+
                 if (!isShipFit) {
+                    
                     topBinding.Converter = new PositionConverter(shit.startingRow, true);
                     leftBinding.Converter = new PositionConverter(shit.startingColumn, false);
 
@@ -437,10 +424,10 @@ namespace Statki
                     currentShip.SetBinding(Canvas.TopProperty, topBinding);
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
 
-                    shit.column = nearestColumn;
-                    shit.row = nearestRow;
                 }
 
+                shit.column = nearestColumn;
+                shit.row = nearestRow;
             }
         }
 
@@ -455,23 +442,20 @@ namespace Statki
             }
         }
 
-
-
         private int getClosestCoord(double position) {
             return (int)Math.Round(position / (BoardGrid.ActualHeight / 11));
         }
 
         private bool willShipFit(Ship shit, int nearestRow, int nearestColumn, bool isHorizontal) {
-            bool isRowOutOfBounds = nearestRow < 1 || nearestRow > 10;
-            bool isColOutOfBounds = nearestColumn < 1 || nearestColumn > 10;
             bool isHorizontalyFit = nearestColumn + shit.length - 1 <= 10 && isHorizontal;
             bool isVerticalyFit = nearestRow + shit.length - 1 <= 10 && isHorizontal == false;
 
-            int startingPoint = isHorizontal ? nearestColumn : nearestRow;
 
-            if (isRowOutOfBounds || isColOutOfBounds || (isHorizontalyFit == false && isVerticalyFit == false)) {
+            if (!(isHorizontalyFit ^ isVerticalyFit) || isOutOfBounds(nearestRow, nearestColumn)) {
                 return false;
             }
+
+            int startingPoint = isHorizontal ? nearestColumn : nearestRow;
 
             for (int i = startingPoint; i < startingPoint + shit.length; i++) {
                 if (board[nearestRow][nearestColumn] == 0) {
@@ -487,10 +471,9 @@ namespace Statki
                         topBorder += i - startingPoint;
                         bottomBorder += i - startingPoint;
                     }
-
                     for (int j = topBorder; j < bottomBorder; j++) {
                         for (int k = leftBorder; k < rightBorder; k++) {
-                            if (j >= 0 && k >= 0 && j <= 10 && k <= 10) {
+                            if (j >= 1 && k >= 1 && j <= 10 && k <= 10) {
                                 if (board[j][k] != 0) {
                                     return false;
                                 }
@@ -510,6 +493,14 @@ namespace Statki
                 }
             }
         }
+
+        private bool isOutOfBounds(int row, int column) {
+            bool isRowOutOfBounds = row < 1 || row > 10;
+            bool isColOutOfBounds = column < 1 || column > 10;
+
+            return isRowOutOfBounds || isColOutOfBounds;
+        }
+
 
     }
 }
