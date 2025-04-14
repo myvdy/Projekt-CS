@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Navigation;
 using System.Globalization;
 using System.Windows.Media.Imaging;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Statki
 {
@@ -45,7 +46,7 @@ namespace Statki
         {
             if (value is double number)
             {
-                return number * 0.325;
+                return number * 0.4;
             }
             return value;
         }
@@ -133,7 +134,8 @@ namespace Statki
     public partial class SinglePlayerShips : Window
     {
 
-        int[][] board;
+        int[][] UserBoard;
+        int[][] Opponentboard;
         bool isDrag = false;
         double top, left;
         System.Windows.Point dragStartPosition;
@@ -152,9 +154,17 @@ namespace Statki
 
             CanvasLeft.MouseMove += MoveShip;
 
-            GenerateAndDisplayBoard(Board);
-            GenerateAndDisplayBoard(Board2);
-            Board.Loaded += (s, e) => AddShips(Board, CanvasLeft);
+            GenerateAndDisplayBoard(ref UserBoard, Board);
+            GenerateAndDisplayBoard(ref Opponentboard, Board2);
+
+            Board.Loaded += (s, e) => AddShips(Board, CanvasLeft, ref UserBoard, false, false);
+            Board2.Loaded += (s, e) => AddShips(Board, CanvasRight, ref Opponentboard, true, true);
+
+        }
+        private void l(ref int[][] b) {
+            b = new int[1][];
+            b[0] = new int[1];
+            b[0][0] = 500;
         }
         private void SizeChanged(object sender, EventArgs e)
         {
@@ -165,7 +175,7 @@ namespace Statki
         }
 
 
-        public void GenerateAndDisplayBoard(Grid Board)
+        public void GenerateAndDisplayBoard(ref int[][] board, Grid Board)
         {
             board = new int[11][];
 
@@ -185,11 +195,11 @@ namespace Statki
                 }
             }
 
-            DisplayBoard(board, Board);
+            DisplayBoard(ref board, Board);
         }
 
 
-        public void DisplayBoard(int[][] board, Grid Board)
+        public void DisplayBoard(ref int[][] board, Grid Board)
         {
             BtnSizeConverter converter = new BtnSizeConverter();
 
@@ -236,7 +246,7 @@ namespace Statki
         }
 
 
-        private void AddShip(Grid gridBoard, Canvas canvas, Ship ship)
+        private void AddShip(Grid gridBoard, Canvas canvas, Ship ship, bool isEnemy)
         {
             int row = 0;
             int column = 0;
@@ -254,7 +264,7 @@ namespace Statki
             WidthBind.Converter = WidthConverter;
 
             ImageBrush imgBrush = new ImageBrush();
-            imgBrush.ImageSource = new BitmapImage(new Uri("../../../ship.jpg", UriKind.Relative));
+            imgBrush.ImageSource = new BitmapImage(new Uri(ship.isHorizontal? "../../../ship1.png" : "../../../ship2.png", UriKind.Relative));
 
             Image shipVis = new Image
             {
@@ -284,49 +294,75 @@ namespace Statki
 
             if (ship.isHorizontal)
             {
-                shipVis.Width = gridBoard.ActualWidth / 11 * ship.length;
-                shipVis.Height = gridBoard.ActualHeight / 11;
+                shipVis.SetBinding(WidthProperty, WidthBind);
+                shipVis.SetBinding(HeightProperty, HeightBind);
             }
             else
             {
-                shipVis.Width = gridBoard.ActualWidth / 11;
-                shipVis.Height = gridBoard.ActualHeight / 11 * ship.length;
+                shipVis.SetBinding(WidthProperty, HeightBind);
+                shipVis.SetBinding(HeightProperty, WidthBind);
             }
 
-            shipVis.SetBinding(WidthProperty, WidthBind);
-            shipVis.SetBinding(HeightProperty, HeightBind);
-
-            shipVis.MouseLeftButtonDown += startDragging;
-            shipVis.MouseLeftButtonUp += stopDragging;
-            shipVis.MouseRightButtonDown += RotateShip;
+            if (!isEnemy) {
+                shipVis.MouseLeftButtonDown += startDragging;
+                shipVis.MouseLeftButtonUp += stopDragging;
+                shipVis.MouseRightButtonDown += RotateShip;
+            } else {
+                //shipVis.Visibility = Visibility.Hidden;
+                //Dodać funkcję shoot tu
+            }
 
 
             canvas.Children.Add(shipVis);
         }
 
 
-        private void AddShips(Grid gridBoard, Canvas canvas)
+        private void AddShips(Grid gridBoard, Canvas canvas, ref int[][] board, bool isRandomized, bool isEnemy)
         {
             int[][] shipsSizes = [[1, 1, 1, 1], [2, 2, 2], [3, 3], [4]];
+
+            Random rand = new Random();
 
             for (int i = 0; i < shipsSizes.Length; i++)
             {
                 for (int j = 0; j < shipsSizes[i].Length; j++)
                 {
                     int shipSize = shipsSizes[i][j];
-                    double currentSize = gridBoard.Height / 11;
 
-                    double x = currentSize;
-                    double y = shipSize + gridBoard.Height / 11 * 12;
+                    if (isRandomized) {
 
-                    int nearestRow = (int)Math.Round(y / (BoardGrid.ActualHeight / 11));
-                    int nearestColumn = (int)Math.Round(x / (BoardGrid.ActualWidth / 11));
+                        bool placed = false;
 
-                    int col = nearestColumn + j * (shipSize + 1);
-                    int row = nearestRow + i * 2;
+                        while (!placed) {
+                            int desiredRow = rand.Next(1, 11);
+                            int desiredCol = rand.Next(1, 11);
+                            bool horizontal = Convert.ToBoolean(rand.Next(0, 2));
 
-                    ships[i][j] = new Ship(shipSize, row, col, row, col, true);
-                    AddShip(gridBoard, canvas, ships[i][j]);
+                            Ship ship = new Ship(shipSize, desiredRow, desiredCol, desiredRow, desiredCol, horizontal);
+
+                            if (willShipFit(ref board, ship, desiredRow, desiredCol, horizontal)) {
+                                changeStateUnderShip(ref board, ship, desiredRow, desiredCol, 1);
+                                ships[i][j] = ship;
+                                AddShip(gridBoard, canvas, ship, isEnemy);
+                                placed = true;
+                            }
+                        }
+                    } else {
+
+                        double currentSize = gridBoard.Height / 11;
+
+                        double x = currentSize;
+                        double y = shipSize + gridBoard.Height / 11 * 12;
+
+                        int nearestRow = (int)Math.Round(y / (BoardGrid.ActualHeight / 11));
+                        int nearestColumn = (int)Math.Round(x / (BoardGrid.ActualWidth / 11));
+
+                        int col = nearestColumn + j * (shipSize + 1);
+                        int row = nearestRow + i * 2;
+
+                        ships[i][j] = new Ship(shipSize, row, col, row, col, true);
+                        AddShip(gridBoard, canvas, ships[i][j], isEnemy);
+                    }
                 }
             }
         }
@@ -336,11 +372,11 @@ namespace Statki
                 Ship ship = (Ship)shipImage.Tag;
 
                 if (!isOutOfBounds(ship.row, ship.column)) { 
-                    changeStateUnderShip(ship, ship.row, ship.column, 0);
-                    if (willShipFit(ship, ship.row, ship.column, !ship.isHorizontal)) {
+                    changeStateUnderShip(ref UserBoard, ship, ship.row, ship.column, 0);
+                    if (willShipFit(ref UserBoard, ship, ship.row, ship.column, !ship.isHorizontal)) {
                         ship.isHorizontal = !ship.isHorizontal;
                     }
-                    changeStateUnderShip(ship, ship.row, ship.column, 1);
+                    changeStateUnderShip(ref UserBoard, ship, ship.row, ship.column, 1);
                 }
 
                 double temp = shipImage.Width;
@@ -349,6 +385,12 @@ namespace Statki
 
                 if (isOutOfBounds(ship.row, ship.column)) {
                     ship.isHorizontal = !ship.isHorizontal;
+                }
+
+                if (ship.isHorizontal) {
+                    shipImage.Source = new BitmapImage(new Uri("../../../ship1.png", UriKind.Relative));
+                } else {
+                    shipImage.Source = new BitmapImage(new Uri("../../../ship2.png", UriKind.Relative));
                 }
 
                 Binding HeightBind = new Binding("Height");
@@ -375,7 +417,7 @@ namespace Statki
                 Ship shit = (Ship)currentShip.Tag;
 
                 if (!(shit.column > 10 || shit.row > 10)) {
-                    changeStateUnderShip(shit, shit.row, shit.column, 0);
+                    changeStateUnderShip(ref UserBoard, shit, shit.row, shit.column, 0);
                 }
 
                 dragStartPosition = e.GetPosition(CanvasLeft);
@@ -407,7 +449,7 @@ namespace Statki
                 Ship shit = (Ship)currentShip.Tag;
 
                 
-                bool isShipFit = willShipFit(shit, nearestRow, nearestColumn, shit.isHorizontal);
+                bool isShipFit = willShipFit(ref UserBoard, shit, nearestRow, nearestColumn, shit.isHorizontal);
 
 
                 if (!isShipFit) {
@@ -419,7 +461,7 @@ namespace Statki
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
 
                 } else {
-                    changeStateUnderShip(shit, nearestRow, nearestColumn, 1);
+                    changeStateUnderShip(ref UserBoard, shit, nearestRow, nearestColumn, 1);
 
                     currentShip.SetBinding(Canvas.TopProperty, topBinding);
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
@@ -446,7 +488,7 @@ namespace Statki
             return (int)Math.Round(position / (BoardGrid.ActualHeight / 11));
         }
 
-        private bool willShipFit(Ship shit, int nearestRow, int nearestColumn, bool isHorizontal) {
+        private bool willShipFit(ref int[][] board, Ship shit, int nearestRow, int nearestColumn, bool isHorizontal) {
             bool isHorizontalyFit = nearestColumn + shit.length - 1 <= 10 && isHorizontal;
             bool isVerticalyFit = nearestRow + shit.length - 1 <= 10 && isHorizontal == false;
 
@@ -458,25 +500,24 @@ namespace Statki
             int startingPoint = isHorizontal ? nearestColumn : nearestRow;
 
             for (int i = startingPoint; i < startingPoint + shit.length; i++) {
-                if (board[nearestRow][nearestColumn] == 0) {
-                    int leftBorder = nearestColumn - 1,
-                        rightBorder = leftBorder + 3,
-                        topBorder = nearestRow - 1,
-                        bottomBorder = topBorder + 3;
+                int leftBorder = nearestColumn - 1,
+                    rightBorder = leftBorder + 3,
+                    topBorder = nearestRow - 1,
+                    bottomBorder = topBorder + 3;
 
-                    if (isHorizontal) {
-                        leftBorder += i - startingPoint;
-                        rightBorder += i - startingPoint;
-                    } else {
-                        topBorder += i - startingPoint;
-                        bottomBorder += i - startingPoint;
-                    }
-                    for (int j = topBorder; j < bottomBorder; j++) {
-                        for (int k = leftBorder; k < rightBorder; k++) {
-                            if (j >= 1 && k >= 1 && j <= 10 && k <= 10) {
-                                if (board[j][k] != 0) {
-                                    return false;
-                                }
+                if (isHorizontal) {
+                    leftBorder += i - startingPoint;
+                    rightBorder += i - startingPoint;
+                } else {
+                    topBorder += i - startingPoint;
+                    bottomBorder += i - startingPoint;
+                }
+
+                for (int j = topBorder; j < bottomBorder; j++) {
+                    for (int k = leftBorder; k < rightBorder; k++) {
+                        if (j >= 1 && k >= 1 && j <= 10 && k <= 10) {
+                            if (board[j][k] != 0) {
+                                return false;
                             }
                         }
                     }
@@ -484,7 +525,7 @@ namespace Statki
             }
             return true;
         }
-        private void changeStateUnderShip(Ship shit, int row, int column, int state) {
+        private void changeStateUnderShip(ref int[][] board, Ship shit, int row, int column, int state) {
             for (int i = 0; i < shit.length; i++) {
                 if (shit.isHorizontal) {
                     board[row][column + i] = state;
@@ -501,6 +542,24 @@ namespace Statki
             return isRowOutOfBounds || isColOutOfBounds;
         }
 
+        private void OnReadyClicked(object sender, RoutedEventArgs e) {
+            if (AreAllShipsPlaced()) {
+                MessageBox.Show("Wszystkie statki poprawnie rozmieszczone!");
+            } else {
+                MessageBox.Show("Nie wszystkie statki są poprawnie rozmieszczone!");
+            }
+        }
+
+        private bool AreAllShipsPlaced() {
+            foreach (var shipRow in ships) {
+                foreach (var ship in shipRow) {
+                    if (isOutOfBounds(ship.row, ship.column) || !willShipFit(ref UserBoard, ship, ship.row, ship.column, ship.isHorizontal)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 
     }
 }

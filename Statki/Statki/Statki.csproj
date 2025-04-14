@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="ship.jpg" />
+    <None Remove="ship1.png" />
+    <None Remove="ship2.png" />
     <None Remove="water.png" />
   </ItemGroup>
 
@@ -19,6 +21,8 @@
 
   <ItemGroup>
     <Resource Include="ship.jpg" />
+    <Resource Include="ship1.png" />
+    <Resource Include="ship2.png" />
     <Resource Include="water.png" />
   </ItemGroup>
 

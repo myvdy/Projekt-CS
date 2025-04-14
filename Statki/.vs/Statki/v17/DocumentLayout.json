@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\ship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\ship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\jdoro\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -22,37 +30,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Ship.cs",
-              "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\Ship.cs",
-              "RelativeDocumentMoniker": "Statki\\Ship.cs",
-              "ToolTip": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\Ship.cs",
-              "RelativeToolTip": "Statki\\Ship.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAXAAAA",
+              "DocumentIndex": 0,
+              "Title": "DataBase.cs",
+              "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\DataBase.cs",
+              "RelativeDocumentMoniker": "Statki\\DataBase.cs",
+              "ToolTip": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\DataBase.cs",
+              "RelativeToolTip": "Statki\\DataBase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-11T18:26:41.681Z",
+              "WhenOpened": "2025-04-14T21:11:47.452Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Statki\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
+              "RelativeToolTip": "Statki\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-14T20:55:22.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Statki\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
+              "RelativeToolTip": "Statki\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T20:55:21.856Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "SinglePlayerShips.xaml.cs",
               "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml.cs",
               "ToolTip": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs",
               "RelativeToolTip": "Statki\\SinglePlayerShips.xaml.cs",
-              "ViewState": "AQIAANwAAAAAAAAAAAAkwOYAAAAVAAAA",
+              "ViewState": "AQIAAEYAAAAAAAAAAAA/wDAAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T10:36:14.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SinglePlayerShips.xaml",
               "DocumentMoniker": "C:\\Users\\jdoro\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml",

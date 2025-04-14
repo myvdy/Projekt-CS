@@ -61,5 +61,8 @@
             <Grid x:Name="BoardGrid2">
             </Grid>
         </Canvas>
+
+
+        <Button Content="Gotowe" Click="OnReadyClicked" Height="40" Width="200" Margin="45,318,40,0" Grid.ColumnSpan="2" Grid.Row="1"/>
     </Grid>
 </Window>
