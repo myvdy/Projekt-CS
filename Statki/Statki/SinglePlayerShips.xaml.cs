@@ -23,7 +23,8 @@ namespace Statki
         double top, left;
         System.Windows.Point dragStartPosition;
         Image currentShip;
-        Ship[][] ships = [[new Ship(), new Ship(), new Ship(), new Ship()], [new Ship(), new Ship(), new Ship()], [new Ship(), new Ship()], [new Ship()]];
+        Ship[][] shipsplayer = [[new Ship(), new Ship(), new Ship(), new Ship()], [new Ship(), new Ship(), new Ship()], [new Ship(), new Ship()], [new Ship()]];
+        Ship[][] shipsopponent = [[new Ship(), new Ship(), new Ship(), new Ship()], [new Ship(), new Ship(), new Ship()], [new Ship(), new Ship()], [new Ship()]];
         private List<(string Move, bool Hit)> Player1moves = new List<(string, bool)>();
         private List<(string Move, bool Hit)> Player2moves = new List<(string, bool)>();
 
@@ -223,7 +224,7 @@ namespace Statki
 
                             if (willShipFit(ref board, ship, desiredRow, desiredCol, horizontal)) {
                                 changeStateUnderShip(ref board, ship, desiredRow, desiredCol, 1);
-                                ships[i][j] = ship;
+                                shipsopponent[i][j] = ship;
                                 AddShip(gridBoard, canvas, ship, isEnemy);
                                 placed = true;
                             }
@@ -241,8 +242,8 @@ namespace Statki
                         int col = nearestColumn + j * (shipSize + 1);
                         int row = nearestRow + i * 2;
 
-                        ships[i][j] = new Ship(shipSize, row, col, row, col, true);
-                        AddShip(gridBoard, canvas, ships[i][j], isEnemy);
+                        shipsplayer[i][j] = new Ship(shipSize, row, col, row, col, true);
+                        AddShip(gridBoard, canvas, shipsplayer[i][j], isEnemy);
                     }
                 }
             }
@@ -297,7 +298,7 @@ namespace Statki
 
                 Ship shit = (Ship)currentShip.Tag;
 
-                if (!(shit.column > 10 || shit.row > 10)) {
+                if (shit.column >= 1 && shit.column <= 10 && shit.row >= 1 && shit.row <= 10) {
                     changeStateUnderShip(ref UserBoard, shit, shit.row, shit.column, 0);
                 }
 
@@ -347,10 +348,10 @@ namespace Statki
                     currentShip.SetBinding(Canvas.TopProperty, topBinding);
                     currentShip.SetBinding(Canvas.LeftProperty, leftBinding);
 
-                }
+                    shit.column = nearestColumn;
+                    shit.row = nearestRow;
 
-                shit.column = nearestColumn;
-                shit.row = nearestRow;
+                }
             }
         }
 
@@ -471,7 +472,7 @@ namespace Statki
                     {
                         RoutedEventHandler shotHandler = (s, args) =>
                         {
-                            HandleOpponentShot(btn);
+                            HandlePlayerShot(btn);
                         };
 
                         btn.Click += shotHandler;
@@ -486,8 +487,49 @@ namespace Statki
             }
         }
 
+        private void HandleOpponentShot()
+        {
+            Random rand = new Random();
+            int row = 0, column = 0;
+            bool validShot = false;
 
-        private void HandleOpponentShot(Button btn)
+            while (!validShot)
+            {
+                row = rand.Next(1, 11);
+                column = rand.Next(1, 11);
+
+                if (UserBoard[row][column] == 0 || UserBoard[row][column] == 1)
+                {
+                    validShot = true;
+                    Button btn = GetButtonFromGrid(BoardGrid, row, column);
+                    if (UserBoard[row][column] == 1)
+                    {
+                        UserBoard[row][column] = 2;
+                        Player2moves.Add(($"{row},{column}", true));
+                        MessageBox.Show("Przeciwnik trafił!");
+                        btn.Background = new SolidColorBrush(Colors.Red);
+                        if (IsShipSunk(row, column, UserBoard, BoardGrid, true))
+                        {
+                            MessageBox.Show("Przeciwnik zatopił twój statek!");
+                            if (AreAllShipsPlaced(ref UserBoard, 2))
+                            {
+                                MessageBox.Show("Przegrałeś!");
+                                gameOver("Komputer");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        btn.Background = new SolidColorBrush(Colors.Gray);
+                        UserBoard[row][column] = -1;
+                        Player2moves.Add(($"{row},{column}", false));
+                        MessageBox.Show("Przeciwnik pudłuje!");
+                    }
+                }
+            }
+        }
+
+        private void HandlePlayerShot(Button btn)
         {
             int gridRow = Grid.GetRow(btn);
             int gridColumn = Grid.GetColumn(btn);
@@ -504,13 +546,14 @@ namespace Statki
                 btn.Background = new SolidColorBrush(Colors.Red);
                 Player1moves.Add(($"{gridRow},{gridColumn}", true));
 
-                if (IsShipSunk(gridRow, gridColumn))
+                if (IsShipSunk(gridRow, gridColumn, Opponentboard, BoardGrid2, false))
                 {
                     MessageBox.Show("Zatopiłeś statek!");
                     if (AreAllShipsPlaced(ref Opponentboard, 2))
                     {
                         MessageBox.Show("Wygrałeś!");
                         gameOver("Człowiek");
+                        return;
                     }
                 }
                 else
@@ -524,17 +567,20 @@ namespace Statki
                 btn.Background = new SolidColorBrush(Colors.Gray);
                 Player1moves.Add(($"{gridRow},{gridColumn}", false));
                 MessageBox.Show("Pudło!");
-                return;
+
             }
             else
             {
                 MessageBox.Show("Już strzelałeś w to miejsce!");
+                return;
             }
 
             if (btn.Tag is RoutedEventHandler shotHandler)
             {
                 btn.Click -= shotHandler;
             }
+
+            HandleOpponentShot();
         }
 
         private string GetMovesAsString(bool who)
@@ -587,49 +633,59 @@ namespace Statki
         }
 
 
-        private bool IsShipSunk(int hitRow, int hitColumn)
+        private bool IsShipSunk(int hitRow, int hitColumn, int[][] board, Grid grid, bool human)
+{
+    Ship[][] ships = human ? shipsplayer : shipsopponent;
+
+    foreach (var shipRow in ships)
+    {
+        foreach (var ship in shipRow)
         {
-            foreach (var shipRow in ships)
+            if (ship.isHorizontal)
             {
-                foreach (var ship in shipRow)
+                if (hitRow == ship.row && hitColumn >= ship.column && hitColumn < ship.column + ship.length)
                 {
-                    if (ship.isHorizontal)
+                    for (int i = 0; i < ship.length; i++)
                     {
-                        if (hitRow == ship.row && hitColumn >= ship.column && hitColumn < ship.column + ship.length)
+                        if (board[ship.row][ship.column + i] != 2)
                         {
-                            for (int i = 0; i < ship.length; i++)
-                            {
-                                if (Opponentboard[ship.row][ship.column + i] != 2)
-                                {
-                                    return false;
-                                }
-                            }
-                            MarkSurroundingAsMiss(ship);
-                            return true;
+                            return false;
                         }
                     }
-                    else
-                    {
-                        if (hitColumn == ship.column && hitRow >= ship.row && hitRow < ship.row + ship.length)
-                        {
-                            for (int i = 0; i < ship.length; i++)
-                            {
-                                if (Opponentboard[ship.row + i][ship.column] != 2)
-                                {
-                                    return false;
-                                }
-                            }
-                            MarkSurroundingAsMiss(ship);
-                            return true;
-                        }
-                    }
+                    MarkSurroundingAsMiss(ship, board, grid);
+                    return true;
                 }
             }
-            return false;
+            else
+            {
+                if (hitColumn == ship.column && hitRow >= ship.row && hitRow < ship.row + ship.length)
+                {
+                    for (int i = 0; i < ship.length; i++)
+                    {
+                        if (board[ship.row + i][ship.column] != 2)
+                        {
+                            return false;
+                        }
+                    }
+                    MarkSurroundingAsMiss(ship, board, grid);
+                    return true;
+                }
+            }
         }
+    }
+    return false;
+}
 
 
-        private void MarkSurroundingAsMiss(Ship ship)
+
+
+
+
+
+
+
+
+        private void MarkSurroundingAsMiss(Ship ship, int[][] board, Grid grid)
         {
             int startRow = ship.row - 1;
             int endRow = ship.isHorizontal ? ship.row + 1 : ship.row + ship.length;
@@ -640,10 +696,10 @@ namespace Statki
             {
                 for (int j = startCol; j <= endCol; j++)
                 {
-                    if (i >= 1 && i <= 10 && j >= 1 && j <= 10 && Opponentboard[i][j] == 0)
+                    if (i >= 1 && i <= 10 && j >= 1 && j <= 10 && board[i][j] == 0)
                     {
-                        Opponentboard[i][j] = -1;
-                        Button btn = GetButtonFromGrid(BoardGrid2, i, j);
+                        board[i][j] = -1;
+                        Button btn = GetButtonFromGrid(grid, i, j);
                         if (btn != null)
                         {
                             btn.Background = new SolidColorBrush(Colors.Gray);
@@ -652,6 +708,8 @@ namespace Statki
                 }
             }
         }
+
+
 
         private Button GetButtonFromGrid(Grid grid, int row, int column)
         {
