@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ship.jpg" />
-    <None Remove="ship1.png" />
-    <None Remove="ship2.png" />
-    <None Remove="water.png" />
+    <None Remove="Images\ship.jpg" />
+    <None Remove="Images\ship1.png" />
+    <None Remove="Images\ship2.png" />
+    <None Remove="Images\water.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="ship.jpg" />
-    <Resource Include="ship1.png" />
-    <Resource Include="ship2.png" />
-    <Resource Include="water.png" />
+    <Resource Include="Images\ship.jpg" />
+    <Resource Include="Images\ship1.png" />
+    <Resource Include="Images\ship2.png" />
+    <Resource Include="Images\water.png" />
   </ItemGroup>
 
 </Project>

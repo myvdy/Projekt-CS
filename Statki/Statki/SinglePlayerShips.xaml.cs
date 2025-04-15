@@ -9,131 +9,12 @@ using System.Windows.Navigation;
 using System.Globalization;
 using System.Windows.Media.Imaging;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Statki
 {
-
-    public class PositionConverter : IValueConverter
-    {
-        private readonly int index;
-        private readonly bool isTop;
-
-        public PositionConverter(int index, bool isTop)
-        {
-            this.index = index;
-            this.isTop = isTop;
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is double gridDimension)
-            {
-                return index * (gridDimension / 11);
-            }
-            return 0;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-    }
-
-
-    public class BtnSizeConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is double number)
-            {
-                return number * 0.4;
-            }
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is double number)
-            {
-                double k = (parameter is double koef) ? koef : 0.325;
-                return number / k;
-            }
-            return value;
-        }
-    }
-
-    public class ShipSizeConverter : IValueConverter
-    {
-        int size;
-        bool isWidth;
-        int top;
-        int left;
-        public ShipSizeConverter(int size, bool isWidth)
-        {
-            this.size = size;
-            this.isWidth = isWidth;
-        }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is double number)
-            {
-                return isWidth ? number * size / 11 : number / 11;
-            }
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is double number)
-            {
-                double k = (parameter is double koef) ? koef : 0.375;
-                return number;
-            }
-            return value;
-        }
-    }
-
-
-    public class MarginConverter : IValueConverter
-    {
-        double currentSize;
-        int size;
-        int j;
-        bool isLeft;
-        public MarginConverter(double currentSize, int size, int j, bool isLeft)
-        {
-            this.currentSize = currentSize;
-            this.size = size;
-            this.j = j;
-            this.isLeft = isLeft;
-        }
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-
-            if (value is double number)
-            {
-                if (isLeft)
-                {
-                    return currentSize + j * (size * currentSize + currentSize * 4 / 3 / size);
-                }
-                else
-                {
-                    return size * (currentSize + currentSize / 3);
-                }
-            }
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
-    }
-
-
     public partial class SinglePlayerShips : Window
     {
-
         int[][] UserBoard;
         int[][] Opponentboard;
         bool isDrag = false;
@@ -141,6 +22,9 @@ namespace Statki
         System.Windows.Point dragStartPosition;
         Image currentShip;
         Ship[][] ships = [[new Ship(), new Ship(), new Ship(), new Ship()], [new Ship(), new Ship(), new Ship()], [new Ship(), new Ship()], [new Ship()]];
+        private List<(string Move, bool Hit)> Player1moves = new List<(string, bool)>();
+        private List<(string Move, bool Hit)> Player2moves = new List<(string, bool)>();
+
 
         public SinglePlayerShips(int level)
         {
@@ -160,11 +44,6 @@ namespace Statki
             Board.Loaded += (s, e) => AddShips(Board, CanvasLeft, ref UserBoard, false, false);
             Board2.Loaded += (s, e) => AddShips(Board, CanvasRight, ref Opponentboard, true, true);
 
-        }
-        private void l(ref int[][] b) {
-            b = new int[1][];
-            b[0] = new int[1];
-            b[0][0] = 500;
         }
         private void SizeChanged(object sender, EventArgs e)
         {
@@ -236,7 +115,7 @@ namespace Statki
                     {
                         btn.Style = (Style)Resources["field2"];
                         ImageBrush imgBrush = new ImageBrush();
-                        imgBrush.ImageSource = new BitmapImage(new Uri("../../../water.png", UriKind.Relative));
+                        imgBrush.ImageSource = new BitmapImage(new Uri("../../../Images/water.png", UriKind.Relative));
                         btn.Background = imgBrush;
                     }
 
@@ -264,7 +143,7 @@ namespace Statki
             WidthBind.Converter = WidthConverter;
 
             ImageBrush imgBrush = new ImageBrush();
-            imgBrush.ImageSource = new BitmapImage(new Uri(ship.isHorizontal? "../../../ship1.png" : "../../../ship2.png", UriKind.Relative));
+            imgBrush.ImageSource = new BitmapImage(new Uri(ship.isHorizontal? "../../../Images/ship1.png" : "../../../Images/ship2.png", UriKind.Relative));
 
             Image shipVis = new Image
             {
@@ -308,7 +187,7 @@ namespace Statki
                 shipVis.MouseLeftButtonUp += stopDragging;
                 shipVis.MouseRightButtonDown += RotateShip;
             } else {
-                //shipVis.Visibility = Visibility.Hidden;
+                shipVis.Visibility = Visibility.Hidden;
                 //Dodać funkcję shoot tu
             }
 
@@ -388,9 +267,9 @@ namespace Statki
                 }
 
                 if (ship.isHorizontal) {
-                    shipImage.Source = new BitmapImage(new Uri("../../../ship1.png", UriKind.Relative));
+                    shipImage.Source = new BitmapImage(new Uri("../../../Images/ship1.png", UriKind.Relative));
                 } else {
-                    shipImage.Source = new BitmapImage(new Uri("../../../ship2.png", UriKind.Relative));
+                    shipImage.Source = new BitmapImage(new Uri("../../../Images/ship2.png", UriKind.Relative));
                 }
 
                 Binding HeightBind = new Binding("Height");
@@ -542,23 +421,220 @@ namespace Statki
             return isRowOutOfBounds || isColOutOfBounds;
         }
 
-        private void OnReadyClicked(object sender, RoutedEventArgs e) {
-            if (AreAllShipsPlaced()) {
+        private bool AreAllShipsPlaced(ref int[][] board, int target)
+        {
+            int counter = 0;
+            for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < 11; j++)
+                {
+                    if (board[i][j] == target)
+                    {
+                        counter += 1;
+                    }
+                }
+            }
+            if (counter == 20)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void OnReadyClicked(object sender, RoutedEventArgs e)
+        {
+            if (AreAllShipsPlaced(ref UserBoard, 1))
+            {
                 MessageBox.Show("Wszystkie statki poprawnie rozmieszczone!");
-            } else {
+                StartGameButton.Visibility = Visibility.Hidden;
+
+                foreach (UIElement child in CanvasLeft.Children)
+                {
+                    if (child is Image shipImage)
+                    {
+                        shipImage.MouseLeftButtonDown -= startDragging;
+                        shipImage.MouseLeftButtonUp -= stopDragging;
+                        shipImage.MouseRightButtonDown -= RotateShip;
+                    }
+                }
+
+                CanvasLeft.MouseMove -= MoveShip;
+
+                foreach (var child in BoardGrid2.Children)
+                {
+                    if (child is Button btn)
+                    {
+                        RoutedEventHandler shotHandler = (s, args) =>
+                        {
+                            int row = Grid.GetRow(btn);
+                            int column = Grid.GetColumn(btn);
+                            HandleOpponentShot(row, column, btn);
+                        };
+
+                        btn.Click += shotHandler;
+
+                        btn.Tag = shotHandler;
+                    }
+                }
+            }
+            else
+            {
                 MessageBox.Show("Nie wszystkie statki są poprawnie rozmieszczone!");
             }
         }
 
-        private bool AreAllShipsPlaced() {
-            foreach (var shipRow in ships) {
-                foreach (var ship in shipRow) {
-                    if (isOutOfBounds(ship.row, ship.column) || !willShipFit(ref UserBoard, ship, ship.row, ship.column, ship.isHorizontal)) {
-                        return false;
+
+        private void HandleOpponentShot(int row, int column, Button btn)
+        {
+            int gridRow = Grid.GetRow(btn);
+            int gridColumn = Grid.GetColumn(btn);
+
+            if (isOutOfBounds(gridRow, gridColumn))
+            {
+                MessageBox.Show("Strzał poza planszą!");
+                return;
+            }
+
+            if (Opponentboard[gridRow][gridColumn] == 1)
+            {
+                Opponentboard[gridRow][gridColumn] = 2;
+                btn.Background = new SolidColorBrush(Colors.Red);
+                Player1moves.Add(($"{gridRow},{gridColumn}", true));
+
+                if (IsShipSunk(gridRow, gridColumn))
+                {
+                    MessageBox.Show("Zatopiłeś statek!");
+                    if (AreAllShipsPlaced(ref Opponentboard, 2))
+                    {
+                        MessageBox.Show("Wygrałeś!");
+                        gameOver("Ludź");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Trafiony!");
+                }
+            }
+            else if (Opponentboard[gridRow][gridColumn] == 0)
+            {
+                Opponentboard[gridRow][gridColumn] = -1;
+                btn.Background = new SolidColorBrush(Colors.Gray);
+                Player1moves.Add(($"{gridRow},{gridColumn}", false));
+                MessageBox.Show("Pudło!");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Już strzelałeś w to miejsce!");
+            }
+
+            if (btn.Tag is RoutedEventHandler shotHandler)
+            {
+                btn.Click -= shotHandler;
+            }
+        }
+
+        private string GetMovesAsString(bool who)
+        {
+            if (who)
+            {
+                var formattedMoves = Player1moves.Select(m => $"[{m.Move}, {m.Hit.ToString().ToLower()}]");
+                return $"[{string.Join(", ", formattedMoves)}]";
+            }
+            else
+            {
+                var formattedMoves = Player2moves.Select(m => $"[{m.Move}, {m.Hit.ToString().ToLower()}]");
+                return $"[{string.Join(", ", formattedMoves)}]";
+            }
+        }
+
+        private void gameOver(string winner)
+        {
+            var connection = new DatabaseManager("localhost", "ships", "root", "");
+            string Player1Moves = GetMovesAsString(true);
+            connection.ExecuteQuery($"INSERT INTO `shipgames`(`winner`, `player1_moves`, `player2_moves`, `game_time`) VALUES ('{winner}','{Player1Moves}','[value-3]','[value-4]');");
+
+        }
+
+        private bool IsShipSunk(int hitRow, int hitColumn)
+        {
+            foreach (var shipRow in ships)
+            {
+                foreach (var ship in shipRow)
+                {
+                    if (ship.isHorizontal)
+                    {
+                        if (hitRow == ship.row && hitColumn >= ship.column && hitColumn < ship.column + ship.length)
+                        {
+                            for (int i = 0; i < ship.length; i++)
+                            {
+                                if (Opponentboard[ship.row][ship.column + i] != 2)
+                                {
+                                    return false;
+                                }
+                            }
+                            MarkSurroundingAsMiss(ship);
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (hitColumn == ship.column && hitRow >= ship.row && hitRow < ship.row + ship.length)
+                        {
+                            for (int i = 0; i < ship.length; i++)
+                            {
+                                if (Opponentboard[ship.row + i][ship.column] != 2)
+                                {
+                                    return false;
+                                }
+                            }
+                            MarkSurroundingAsMiss(ship);
+                            return true;
+                        }
                     }
                 }
             }
-            return true;
+            return false;
+        }
+
+
+        private void MarkSurroundingAsMiss(Ship ship)
+        {
+            int startRow = ship.row - 1;
+            int endRow = ship.isHorizontal ? ship.row + 1 : ship.row + ship.length;
+            int startCol = ship.column - 1;
+            int endCol = ship.isHorizontal ? ship.column + ship.length : ship.column + 1;
+
+            for (int i = startRow; i <= endRow; i++)
+            {
+                for (int j = startCol; j <= endCol; j++)
+                {
+                    if (i >= 1 && i <= 10 && j >= 1 && j <= 10 && Opponentboard[i][j] == 0)
+                    {
+                        Opponentboard[i][j] = -1;
+                        Button btn = GetButtonFromGrid(BoardGrid2, i, j);
+                        if (btn != null)
+                        {
+                            btn.Background = new SolidColorBrush(Colors.Gray);
+                        }
+                    }
+                }
+            }
+        }
+
+        private Button GetButtonFromGrid(Grid grid, int row, int column)
+        {
+            foreach (var child in grid.Children)
+            {
+                if (child is Button btn && Grid.GetRow(btn) == row && Grid.GetColumn(btn) == column)
+                {
+                    return btn;
+                }
+            }
+            return null;
         }
 
     }
