@@ -7,6 +7,18 @@
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\positionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\positionconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,20 +31,8 @@
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\btnsizeconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|solutionrelative:statki\\singleplayerships.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0C91DBA-48A1-493A-978E-C855D50BA4CD}|Statki\\Statki.csproj|c:\\users\\administrator\\desktop\\project2\\projekt-cs\\statki\\statki\\marginconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "BtnSizeConverter.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\BtnSizeConverter.cs",
               "RelativeDocumentMoniker": "Statki\\BtnSizeConverter.cs",
@@ -62,7 +62,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ShipSizeConverter.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\ShipSizeConverter.cs",
               "RelativeDocumentMoniker": "Statki\\ShipSizeConverter.cs",
@@ -86,7 +86,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "DataBase.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\DataBase.cs",
               "RelativeDocumentMoniker": "Statki\\DataBase.cs",
@@ -94,22 +94,24 @@
               "RelativeToolTip": "Statki\\DataBase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T21:11:47.452Z"
+              "WhenOpened": "2025-04-14T21:11:47.452Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml",
               "RelativeToolTip": "Statki\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-14T20:55:22.457Z"
+              "WhenOpened": "2025-04-14T20:55:22.457Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Statki\\MainWindow.xaml.cs",
@@ -117,7 +119,8 @@
               "RelativeToolTip": "Statki\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T20:55:21.856Z"
+              "WhenOpened": "2025-04-14T20:55:21.856Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -127,14 +130,14 @@
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml.cs",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml.cs*",
               "RelativeToolTip": "Statki\\SinglePlayerShips.xaml.cs*",
-              "ViewState": "AgIAAJ0BAAAAAAAAAAAMwMABAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAuwOkBAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-12T10:36:14.069Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "PositionConverter.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\PositionConverter.cs",
               "RelativeDocumentMoniker": "Statki\\PositionConverter.cs",
@@ -142,18 +145,20 @@
               "RelativeToolTip": "Statki\\PositionConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T22:50:25.815Z"
+              "WhenOpened": "2025-04-14T22:50:25.815Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "SinglePlayerShips.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeDocumentMoniker": "Statki\\SinglePlayerShips.xaml",
               "ToolTip": "C:\\Users\\Administrator\\Desktop\\project2\\Projekt-CS\\Statki\\Statki\\SinglePlayerShips.xaml",
               "RelativeToolTip": "Statki\\SinglePlayerShips.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T07:07:18.934Z"
+              "WhenOpened": "2025-04-01T07:07:18.934Z",
+              "EditorCaption": ""
             }
           ]
         }

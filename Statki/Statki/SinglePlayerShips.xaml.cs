@@ -10,11 +10,13 @@ using System.Globalization;
 using System.Windows.Media.Imaging;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using System.Diagnostics;
 
 namespace Statki
 {
     public partial class SinglePlayerShips : Window
     {
+        private Stopwatch gameTimer = new Stopwatch();
         int[][] UserBoard;
         int[][] Opponentboard;
         bool isDrag = false;
@@ -30,7 +32,7 @@ namespace Statki
         {
             InitializeComponent();
             window.StateChanged += SizeChanged;
-
+            gameTimer.Start();
 
             Grid Board = BoardGrid;
             Grid Board2 = BoardGrid2;
@@ -469,9 +471,7 @@ namespace Statki
                     {
                         RoutedEventHandler shotHandler = (s, args) =>
                         {
-                            int row = Grid.GetRow(btn);
-                            int column = Grid.GetColumn(btn);
-                            HandleOpponentShot(row, column, btn);
+                            HandleOpponentShot(btn);
                         };
 
                         btn.Click += shotHandler;
@@ -487,7 +487,7 @@ namespace Statki
         }
 
 
-        private void HandleOpponentShot(int row, int column, Button btn)
+        private void HandleOpponentShot(Button btn)
         {
             int gridRow = Grid.GetRow(btn);
             int gridColumn = Grid.GetColumn(btn);
@@ -510,7 +510,7 @@ namespace Statki
                     if (AreAllShipsPlaced(ref Opponentboard, 2))
                     {
                         MessageBox.Show("Wygrałeś!");
-                        gameOver("Ludź");
+                        gameOver("Człowiek");
                     }
                 }
                 else
@@ -553,11 +553,39 @@ namespace Statki
 
         private void gameOver(string winner)
         {
+            gameTimer.Stop();
+            RemoveAllHandlers();
+            string gameTime = gameTimer.Elapsed.ToString(@"hh\:mm\:ss");
             var connection = new DatabaseManager("localhost", "ships", "root", "");
             string Player1Moves = GetMovesAsString(true);
-            connection.ExecuteQuery($"INSERT INTO `shipgames`(`winner`, `player1_moves`, `player2_moves`, `game_time`) VALUES ('{winner}','{Player1Moves}','[value-3]','[value-4]');");
-
+            string Player2Moves = GetMovesAsString(false);
+            connection.ExecuteQuery($"INSERT INTO `shipgames`(`winner`, `player1_moves`, `player2_moves`, `game_time`) VALUES ('{winner}','{Player1Moves}','{Player2Moves}','{gameTime}');");
         }
+
+        private void RemoveAllHandlers()
+        {
+            foreach (UIElement child in CanvasLeft.Children)
+            {
+                if (child is Image shipImage)
+                {
+                    shipImage.MouseLeftButtonDown -= startDragging;
+                    shipImage.MouseLeftButtonUp -= stopDragging;
+                    shipImage.MouseRightButtonDown -= RotateShip;
+                }
+            }
+
+            CanvasLeft.MouseMove -= MoveShip;
+
+            foreach (var child in BoardGrid2.Children)
+            {
+                if (child is Button btn && btn.Tag is RoutedEventHandler shotHandler)
+                {
+                    btn.Click -= shotHandler;
+                    btn.Tag = null;
+                }
+            }
+        }
+
 
         private bool IsShipSunk(int hitRow, int hitColumn)
         {
